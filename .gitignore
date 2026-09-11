@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/output/
+data/*.db
+data/*.db-*
+data/incoming/*
+data/outgoing/*
+data/temp/*
+data/completed/*
+data/logs/*
+.DS_Store
+.env
+*.log
+ios/FileTransfer.xcodeproj/project.xcworkspace/
+ios/FileTransfer.xcodeproj/xcuserdata/

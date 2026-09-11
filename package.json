@@ -1,0 +1,27 @@
+{
+  "name": "file-transfer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Beautiful cross-platform file transfer and friend chat",
+  "workspaces": [
+    "shared",
+    "server",
+    "windows"
+  ],
+  "scripts": {
+    "build:shared": "npm run build --workspace shared",
+    "build:server": "npm run build --workspace server",
+    "build:windows": "npm run build --workspace windows",
+    "test:shared": "npm test --workspace shared",
+    "test:server": "npm test --workspace server",
+    "test": "npm run test:shared && npm run test:server",
+    "typecheck": "npm run build:shared && npm run build:server"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}
