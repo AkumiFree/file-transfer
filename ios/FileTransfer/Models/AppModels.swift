@@ -550,13 +550,15 @@ extension AppTheme {
 }
 #endif
 
-enum AppLanguage: String, Codable, CaseIterable, Hashable, Sendable {
+enum AppLanguage: String, Codable, CaseIterable, Identifiable, Hashable, Sendable {
     case system
     case english = "en"
     case vietnamese = "vi"
     case simplifiedChinese = "zh-Hans"
     case traditionalChinese = "zh-Hant"
     case japanese = "ja"
+
+    var id: String { rawValue }
 
     var displayName: String {
         switch self {
