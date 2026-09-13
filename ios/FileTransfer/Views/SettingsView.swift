@@ -6,7 +6,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section(String(localized: "server")) {
+            Section {
                 TextField(String(localized: "server_url"), text: $serverURL, axis: .vertical)
                     .textInputAutocapitalization(.never)
                     .keyboardType(.URL)
@@ -14,11 +14,13 @@ struct SettingsView: View {
                     Button(String(localized: "save_server")) { Task { await saveServer() } }
                     Button(String(localized: "test_connection")) { Task { await appState.testConnection() } }
                 }
+            } header: {
+                Text(String(localized: "server"))
             } footer: {
                 Text(String(localized: "server_url_help"))
             }
 
-            Section(String(localized: "appearance")) {
+            Section {
                 Picker(String(localized: "language"), selection: $appState.settings.language) {
                     ForEach(AppLanguage.allCases) { language in
                         Text(language.displayName).tag(language)
@@ -29,26 +31,32 @@ struct SettingsView: View {
                     Text(String(localized: "light")).tag(AppTheme.light)
                     Text(String(localized: "dark")).tag(AppTheme.dark)
                 }
+            } header: {
+                Text(String(localized: "appearance"))
             }
 
-            Section(String(localized: "account")) {
+            Section {
                 LabeledContent(String(localized: "account"), value: appState.user?.displayName ?? appState.user?.username ?? "")
                 Button(String(localized: "sign_out"), role: .destructive) { Task { await appState.logout() } }
+            } header: {
+                Text(String(localized: "account"))
             }
 
-            Section(String(localized: "offline_workflow")) {
+            Section {
                 Text(String(localized: "offline_workflow_body"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 Text(String(localized: "offline_tip"))
                     .font(.caption)
                     .foregroundStyle(.blue)
+            } header: {
+                Text(String(localized: "offline_workflow"))
             }
         }
         .navigationTitle(String(localized: "settings"))
         .onAppear { serverURL = appState.settings.serverURL }
         .alert(String(localized: "error"), isPresented: errorBinding()) {
-            Button(String(localized: "ok"), role: .cancel) { appState.lastError = nil }
+            Button(String(localized: "ok"), role: .cancel) { appState.clearError() }
         } message: {
             Text(appState.lastError ?? "")
         }
@@ -59,11 +67,11 @@ struct SettingsView: View {
             try appState.configure(serverURL: serverURL)
             await appState.testConnection()
         } catch {
-            appState.lastError = error.localizedDescription
+            appState.setError(error.localizedDescription)
         }
     }
 
     private func errorBinding() -> Binding<Bool> {
-        Binding(get: { appState.lastError != nil }, set: { if !$0 { appState.lastError = nil } })
+        Binding(get: { appState.lastError != nil }, set: { if !$0 { appState.clearError() } })
     }
 }

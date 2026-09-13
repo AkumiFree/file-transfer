@@ -13,7 +13,7 @@ struct ErrorBanner: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(.red.opacity(0.9))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .accessibilityRole(.alert)
+                .accessibilityAddTraits(.isStaticText)
         }
     }
 }
@@ -99,7 +99,7 @@ struct FileIcon: View {
     var body: some View {
         Image(systemName: imageName)
             .font(.title3)
-            .foregroundStyle(.accentColor)
+            .foregroundStyle(.tint)
             .frame(width: 32, height: 32)
             .accessibilityHidden(true)
     }

@@ -1,5 +1,5 @@
 import SwiftUI
-import CoreTransferable
+import Foundation
 import UniformTypeIdentifiers
 
 struct FilesView: View {
@@ -21,7 +21,7 @@ struct FilesView: View {
                 Text(String(localized: "import_files_help"))
             }
 
-            Section(String(localized: "local_files")) {
+            Section {
                 if appState.localFiles.items.isEmpty {
                     EmptyState(systemImage: "folder", title: String(localized: "no_local_files"), subtitle: String(localized: "no_local_files_hint"))
                         .listRowBackground(Color.clear)
@@ -36,31 +36,46 @@ struct FilesView: View {
                             }
                     }
                 }
+            } header: {
+                Text(String(localized: "local_files"))
             }
 
-            Section(String(localized: "offline_workflow")) {
+            Section {
                 Text(String(localized: "offline_workflow_body"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+            } header: {
+                Text(String(localized: "offline_workflow"))
             }
         }
         .navigationTitle(String(localized: "files"))
         .fileImporter(isPresented: $isImporting, allowedContentTypes: [.item], allowsMultipleSelection: true) { result in
             switch result {
             case let .success(urls): appState.importFiles(urls)
-            case let .failure(error): appState.lastError = error.localizedDescription
+            case let .failure(error): appState.setError(error.localizedDescription)
             }
         }
-        .fileExporter(isPresented: $isExporting, item: exportItem.map(ExportableFile.init), defaultFilename: exportItem?.filename ?? "file", contentTypes: [.data]) { result in
-            switch result {
-            case .success:
-                importedMessage = String(localized: "export_complete")
-                let shouldDelete = deleteAfterExport
-                deleteAfterExport = false
-                if shouldDelete, let item = exportItem { appState.deleteLocalFile(item) }
-            case let .failure(error):
-                importedMessage = nil
-                appState.lastError = error.localizedDescription
+        .background {
+            if let item = exportItem {
+                EmptyView()
+                    .fileExporter(
+                        isPresented: $isExporting,
+                        document: ExportableDocument(url: item.url),
+                        contentType: .data,
+                        defaultFilename: item.filename
+                    ) { result in
+                        switch result {
+                        case .success:
+                            importedMessage = String(localized: "export_complete")
+                            let shouldDelete = deleteAfterExport
+                            deleteAfterExport = false
+                            if shouldDelete { appState.deleteLocalFile(item) }
+                        case let .failure(error):
+                            importedMessage = nil
+                            appState.setError(error.localizedDescription)
+                        }
+                        exportItem = nil
+                    }
             }
         }
         .overlay {
@@ -105,12 +120,20 @@ private struct FileRow: View {
     }
 }
 
-private struct ExportableFile: Transferable {
+private struct ExportableDocument: FileDocument {
     let url: URL
 
-    static var transferRepresentation: some TransferRepresentation {
-        FileRepresentation(contentType: .data) { file in
-            SentTransferredFile(file.url)
-        }
+    static var readableContentTypes: [UTType] { [.data] }
+
+    init(url: URL) {
+        self.url = url
+    }
+
+    init(configuration: ReadConfiguration) throws {
+        throw CocoaError(.fileReadUnsupportedScheme)
+    }
+
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        try FileWrapper(url: url, options: [])
     }
 }

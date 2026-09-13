@@ -53,7 +53,7 @@ struct FriendsView: View {
             if appState.isBusy { ProgressView() }
         }
         .alert(String(localized: "error"), isPresented: errorBinding()) {
-            Button(String(localized: "ok"), role: .cancel) { appState.lastError = nil }
+            Button(String(localized: "ok"), role: .cancel) { appState.clearError() }
         } message: {
             Text(appState.lastError ?? "")
         }
@@ -143,7 +143,7 @@ struct FriendsView: View {
     }
 
     private func errorBinding() -> Binding<Bool> {
-        Binding(get: { appState.lastError != nil }, set: { if !$0 { appState.lastError = nil } })
+        Binding(get: { appState.lastError != nil }, set: { if !$0 { appState.clearError() } })
     }
 }
 

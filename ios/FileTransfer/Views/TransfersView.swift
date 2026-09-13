@@ -8,7 +8,7 @@ struct TransfersView: View {
 
     var body: some View {
         List {
-            Section(String(localized: "send_file")) {
+            Section {
                 Picker(String(localized: "friend"), selection: $selectedFriendID) {
                     Text(String(localized: "choose")).tag(Optional<Int>(nil))
                     ForEach(appState.friends) { friend in
@@ -26,11 +26,13 @@ struct TransfersView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .disabled(selectedFriendID == nil || selectedFileID == nil || appState.isBusy)
+            } header: {
+                Text(String(localized: "send_file"))
             } footer: {
                 Text(String(localized: "upload_help"))
             }
 
-            Section(String(localized: "transfers")) {
+            Section {
                 if appState.transfers.isEmpty {
                     EmptyState(systemImage: "arrow.up.arrow.down", title: String(localized: "no_transfers"), subtitle: String(localized: "no_transfers_hint"))
                         .listRowBackground(Color.clear)
@@ -51,6 +53,8 @@ struct TransfersView: View {
                         }
                     }
                 }
+            } header: {
+                Text(String(localized: "transfers"))
             }
         }
         .navigationTitle(String(localized: "transfers"))
@@ -64,7 +68,7 @@ struct TransfersView: View {
             Text(downloadName ?? "")
         }
         .alert(String(localized: "error"), isPresented: errorBinding()) {
-            Button(String(localized: "ok"), role: .cancel) { appState.lastError = nil }
+            Button(String(localized: "ok"), role: .cancel) { appState.clearError() }
         } message: {
             Text(appState.lastError ?? "")
         }
@@ -89,7 +93,7 @@ struct TransfersView: View {
     }
 
     private func errorBinding() -> Binding<Bool> {
-        Binding(get: { appState.lastError != nil }, set: { if !$0 { appState.lastError = nil } })
+        Binding(get: { appState.lastError != nil }, set: { if !$0 { appState.clearError() } })
     }
 }
 

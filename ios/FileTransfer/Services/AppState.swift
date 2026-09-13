@@ -295,6 +295,14 @@ final class AppState: ObservableObject {
         defaults.set(settings.serverURL, forKey: "serverURL")
     }
 
+    func setError(_ message: String) {
+        lastError = message
+    }
+
+    func clearError() {
+        lastError = nil
+    }
+
     private func bindTransferService(_ service: TransferService) {
         transferServiceCancellable = service.objectWillChange.sink { [weak self] _ in
             self?.objectWillChange.send()

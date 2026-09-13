@@ -9,7 +9,7 @@ struct ChatView: View {
                 EmptyState(systemImage: "message", title: String(localized: "no_friends"), subtitle: String(localized: "chat_requires_friend"))
                     .listRowBackground(Color.clear)
             } else {
-                Section(String(localized: "conversations")) {
+                Section {
                     ForEach(appState.friends) { friend in
                         NavigationLink {
                             ChatConversationView(friend: friend)
@@ -33,6 +33,8 @@ struct ChatView: View {
                             .padding(.vertical, 4)
                         }
                     }
+                } header: {
+                    Text(String(localized: "conversations"))
                 }
             }
         }

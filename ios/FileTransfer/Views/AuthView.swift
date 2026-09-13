@@ -71,7 +71,7 @@ struct AuthView: View {
                 if appState.isBusy { ProgressView() }
             }
             .alert(String(localized: "error"), isPresented: bindingToError()) {
-                Button(String(localized: "ok"), role: .cancel) { appState.lastError = nil }
+                Button(String(localized: "ok"), role: .cancel) { appState.clearError() }
             } message: {
                 Text(appState.lastError ?? "")
             }
@@ -96,7 +96,7 @@ struct AuthView: View {
             configuredURL = serverURL
             focusedField = .identifier
         } catch {
-            appState.lastError = error.localizedDescription
+            appState.setError(error.localizedDescription)
         }
     }
 
@@ -105,7 +105,7 @@ struct AuthView: View {
         do {
             try appState.configure(serverURL: serverURL)
         } catch {
-            appState.lastError = error.localizedDescription
+            appState.setError(error.localizedDescription)
         }
     }
 
@@ -121,7 +121,7 @@ struct AuthView: View {
     private func bindingToError() -> Binding<Bool> {
         Binding(
             get: { appState.lastError != nil },
-            set: { if !$0 { appState.lastError = nil } }
+            set: { if !$0 { appState.clearError() } }
         )
     }
 }

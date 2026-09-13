@@ -95,7 +95,7 @@ private struct SummaryTile: View {
         VStack(spacing: 8) {
             Image(systemName: image)
                 .font(.title3)
-                .foregroundStyle(.accentColor)
+                .foregroundStyle(.tint)
             Text(value)
                 .font(.title3.bold())
                 .monospacedDigit()
