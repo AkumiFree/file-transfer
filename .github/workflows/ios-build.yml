@@ -89,7 +89,13 @@ jobs:
         run: |
           set -euo pipefail
           plutil -lint "$IOS_OUTPUT/Info.plist"
-          executable="$(plutil -extract CFBundleExecutable xml1 -o - "$IOS_OUTPUT/Info.plist" | python3 -c 'import plistlib,sys; print(plistlib.load(sys.stdin.buffer)["CFBundleExecutable"])')"
+          executable="$(python3 - "$IOS_OUTPUT/Info.plist" <<'PY'
+import plistlib
+import sys
+with open(sys.argv[1], "rb") as f:
+    print(plistlib.load(f)["CFBundleExecutable"])
+PY
+)"
           test -x "$IOS_OUTPUT/$executable"
           rm -f build/FileTransfer.app.zip
           ditto -c -k --sequesterRsrc --keepParent "$IOS_OUTPUT" build/FileTransfer.app.zip
