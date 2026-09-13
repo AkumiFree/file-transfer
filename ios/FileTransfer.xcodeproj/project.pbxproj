@@ -1,0 +1,533 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A00000000000000000000001 /* FileTransferApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000001 /* FileTransferApp.swift */; };
+		A00000000000000000000002 /* AppModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000002 /* AppModels.swift */; };
+		A00000000000000000000003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000003 /* AppState.swift */; };
+		A00000000000000000000004 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000004 /* APIClient.swift */; };
+		A00000000000000000000005 /* EndpointResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000005 /* EndpointResolver.swift */; };
+		A00000000000000000000006 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000006 /* KeychainStore.swift */; };
+		A00000000000000000000007 /* LocalFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000007 /* LocalFileStore.swift */; };
+		A00000000000000000000008 /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000008 /* TransferService.swift */; };
+		A00000000000000000000009 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000009 /* WebSocketClient.swift */; };
+		A0000000000000000000000A /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90000000000000000000000A /* AuthView.swift */; };
+		A0000000000000000000000B /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90000000000000000000000B /* ChatView.swift */; };
+		A0000000000000000000000C /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90000000000000000000000C /* Components.swift */; };
+		A0000000000000000000000D /* FilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90000000000000000000000D /* FilesView.swift */; };
+		A0000000000000000000000E /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90000000000000000000000E /* FriendsView.swift */; };
+		A0000000000000000000000F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90000000000000000000000F /* HomeView.swift */; };
+		A00000000000000000000010 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000010 /* SettingsView.swift */; };
+		A00000000000000000000011 /* TransfersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000011 /* TransfersView.swift */; };
+		A00000000000000000000012 /* FileTransferCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000012 /* FileTransferCoreTests.swift */; };
+		A00000000000000000000013 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 900000000000000000000014 /* Assets.xcassets */; };
+		A00000000000000000000014 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 800000000000000000000001 /* Localizable.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		700000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 100000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 200000000000000000000001;
+			remoteInfo = FileTransfer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		300000000000000000000001 /* FileTransfer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileTransfer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		300000000000000000000002 /* FileTransferTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FileTransferTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		900000000000000000000001 /* FileTransferApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTransferApp.swift; sourceTree = "<group>"; };
+		900000000000000000000002 /* AppModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModels.swift; sourceTree = "<group>"; };
+		900000000000000000000003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		900000000000000000000004 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		900000000000000000000005 /* EndpointResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointResolver.swift; sourceTree = "<group>"; };
+		900000000000000000000006 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		900000000000000000000007 /* LocalFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileStore.swift; sourceTree = "<group>"; };
+		900000000000000000000008 /* TransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
+		900000000000000000000009 /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
+		90000000000000000000000A /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		90000000000000000000000B /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		90000000000000000000000C /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		90000000000000000000000D /* FilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesView.swift; sourceTree = "<group>"; };
+		90000000000000000000000E /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		90000000000000000000000F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		900000000000000000000010 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		900000000000000000000011 /* TransfersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransfersView.swift; sourceTree = "<group>"; };
+		900000000000000000000012 /* FileTransferCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTransferCoreTests.swift; sourceTree = "<group>"; };
+		900000000000000000000013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		900000000000000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		900000000000000000000015 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en.lproj; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		900000000000000000000016 /* vi.lproj */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi.lproj; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		900000000000000000000017 /* ja.lproj */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja.lproj; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		900000000000000000000018 /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans.lproj"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		900000000000000000000019 /* zh-Hant.lproj */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant.lproj"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		400000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		400000000000000000000005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		100000000000000000000002 /* */ = {
+			isa = PBXGroup;
+			children = (
+				100000000000000000000004 /* FileTransfer */,
+				100000000000000000000005 /* FileTransferTests */,
+				100000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		100000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				300000000000000000000001 /* FileTransfer.app */,
+				300000000000000000000002 /* FileTransferTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		100000000000000000000004 /* FileTransfer */ = {
+			isa = PBXGroup;
+			children = (
+				900000000000000000000001 /* FileTransferApp.swift */,
+				100000000000000000000006 /* Models */,
+				100000000000000000000007 /* Services */,
+				100000000000000000000008 /* Views */,
+				100000000000000000000009 /* Resources */,
+			);
+			path = FileTransfer;
+			sourceTree = "<group>";
+		};
+		100000000000000000000005 /* FileTransferTests */ = {
+			isa = PBXGroup;
+			children = (
+				900000000000000000000012 /* FileTransferCoreTests.swift */,
+			);
+			path = FileTransferTests;
+			sourceTree = "<group>";
+		};
+		100000000000000000000006 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				900000000000000000000002 /* AppModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		100000000000000000000007 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				900000000000000000000003 /* AppState.swift */,
+				900000000000000000000004 /* APIClient.swift */,
+				900000000000000000000005 /* EndpointResolver.swift */,
+				900000000000000000000006 /* KeychainStore.swift */,
+				900000000000000000000007 /* LocalFileStore.swift */,
+				900000000000000000000008 /* TransferService.swift */,
+				900000000000000000000009 /* WebSocketClient.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		100000000000000000000008 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				90000000000000000000000A /* AuthView.swift */,
+				90000000000000000000000B /* ChatView.swift */,
+				90000000000000000000000C /* Components.swift */,
+				90000000000000000000000D /* FilesView.swift */,
+				90000000000000000000000E /* FriendsView.swift */,
+				90000000000000000000000F /* HomeView.swift */,
+				900000000000000000000010 /* SettingsView.swift */,
+				900000000000000000000011 /* TransfersView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		100000000000000000000009 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				900000000000000000000013 /* Info.plist */,
+				900000000000000000000014 /* Assets.xcassets */,
+				800000000000000000000001 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		200000000000000000000001 /* FileTransfer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 600000000000000000000002 /* Build configuration list for PBXNativeTarget "FileTransfer" */;
+			buildPhases = (
+				400000000000000000000001 /* Sources */,
+				400000000000000000000002 /* Frameworks */,
+				400000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FileTransfer;
+			productName = FileTransfer;
+			productReference = 300000000000000000000001 /* FileTransfer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		200000000000000000000002 /* FileTransferTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 600000000000000000000003 /* Build configuration list for PBXNativeTarget "FileTransferTests" */;
+			buildPhases = (
+				400000000000000000000004 /* Sources */,
+				400000000000000000000005 /* Frameworks */,
+				400000000000000000000006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				700000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = FileTransferTests;
+			productName = FileTransferTests;
+			productReference = 300000000000000000000002 /* FileTransferTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		100000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					200000000000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+						ProvisioningStyle = Automatic;
+					};
+					200000000000000000000002 = {
+						CreatedOnToolsVersion = 16.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 600000000000000000000001 /* Build configuration list for PBXProject "FileTransfer" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				vi,
+				ja,
+				"zh-Hans",
+				"zh-Hant",
+			);
+			mainGroup = 100000000000000000000002;
+			productRefGroup = 100000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				200000000000000000000001 /* FileTransfer */,
+				200000000000000000000002 /* FileTransferTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		400000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00000000000000000000013 /* Assets.xcassets in Resources */,
+				A00000000000000000000014 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		400000000000000000000006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		400000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00000000000000000000001 /* FileTransferApp.swift in Sources */,
+				A00000000000000000000002 /* AppModels.swift in Sources */,
+				A00000000000000000000003 /* AppState.swift in Sources */,
+				A00000000000000000000004 /* APIClient.swift in Sources */,
+				A00000000000000000000005 /* EndpointResolver.swift in Sources */,
+				A00000000000000000000006 /* KeychainStore.swift in Sources */,
+				A00000000000000000000007 /* LocalFileStore.swift in Sources */,
+				A00000000000000000000008 /* TransferService.swift in Sources */,
+				A00000000000000000000009 /* WebSocketClient.swift in Sources */,
+				A0000000000000000000000A /* AuthView.swift in Sources */,
+				A0000000000000000000000B /* ChatView.swift in Sources */,
+				A0000000000000000000000C /* Components.swift in Sources */,
+				A0000000000000000000000D /* FilesView.swift in Sources */,
+				A0000000000000000000000E /* FriendsView.swift in Sources */,
+				A0000000000000000000000F /* HomeView.swift in Sources */,
+				A00000000000000000000010 /* SettingsView.swift in Sources */,
+				A00000000000000000000011 /* TransfersView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		400000000000000000000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A00000000000000000000012 /* FileTransferCoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		700000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 200000000000000000000001 /* FileTransfer */;
+			targetProxy = 700000000000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		800000000000000000000001 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				900000000000000000000015 /* en.lproj */,
+				900000000000000000000016 /* vi.lproj */,
+				900000000000000000000017 /* ja.lproj */,
+				900000000000000000000018 /* zh-Hans.lproj */,
+				900000000000000000000019 /* zh-Hant.lproj */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		500000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		500000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		500000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FileTransfer/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.filetransfer.app;
+				PRODUCT_MODULE_NAME = FileTransfer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		500000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_PREVIEWS = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FileTransfer/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.filetransfer.app;
+				PRODUCT_MODULE_NAME = FileTransfer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = -O;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		500000000000000000000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = FileTransferTests;
+				INFOPLIST_KEY_CFBundleIdentifier = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				INFOPLIST_KEY_CFBundleName = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_CFBundlePackageType = BNDL;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.filetransfer.app.tests;
+				PRODUCT_MODULE_NAME = FileTransferTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FileTransfer.app/FileTransfer";
+			};
+			name = Debug;
+		};
+		500000000000000000000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = FileTransferTests;
+				INFOPLIST_KEY_CFBundleIdentifier = "$(PRODUCT_BUNDLE_IDENTIFIER)";
+				INFOPLIST_KEY_CFBundleName = "$(PRODUCT_NAME)";
+				INFOPLIST_KEY_CFBundlePackageType = BNDL;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.filetransfer.app.tests;
+				PRODUCT_MODULE_NAME = FileTransferTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = (
+					iphoneos,
+					iphonesimulator,
+				);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FileTransfer.app/FileTransfer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		600000000000000000000001 /* Build configuration list for PBXProject "FileTransfer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				500000000000000000000001 /* Debug */,
+				500000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		600000000000000000000002 /* Build configuration list for PBXNativeTarget "FileTransfer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				500000000000000000000003 /* Debug */,
+				500000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		600000000000000000000003 /* Build configuration list for PBXNativeTarget "FileTransferTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				500000000000000000000005 /* Debug */,
+				500000000000000000000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 100000000000000000000001 /* Project object */;
+}

@@ -1,0 +1,107 @@
+name: iOS App Build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ios/**
+      - .github/workflows/ios-build.yml
+
+permissions:
+  contents: read
+
+jobs:
+  build-app:
+    name: Build unsigned iOS app
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      XCODE_VERSION: '16.4'
+      IOS_PROJECT: ios/FileTransfer.xcodeproj
+      IOS_SCHEME: FileTransfer
+      IOS_CONFIGURATION: Release
+      IOS_SDK: iphoneos
+      IOS_OUTPUT: build/FileTransfer.app
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: |
+          set -euo pipefail
+          xcode_path="/Applications/Xcode_${XCODE_VERSION}.app"
+          test -x "$xcode_path/Contents/Developer/usr/bin/xcodebuild"
+          sudo xcode-select -s "$xcode_path/Contents/Developer"
+          xcodebuild -version
+          xcodebuild -showsdks | grep -F "iphoneos18.5"
+
+      - name: Validate project and scheme
+        run: |
+          set -euo pipefail
+          test -f "$IOS_PROJECT/project.pbxproj"
+          xcodebuild -project "$IOS_PROJECT" -list -json > build-ios-project.json
+          node - build-ios-project.json "$IOS_SCHEME" <<'NODE'
+          const fs = require('node:fs');
+          const [input, scheme] = process.argv.slice(2);
+          const data = JSON.parse(fs.readFileSync(input, 'utf8'));
+          const roots = [data.project, data.workspace].filter(Boolean);
+          const schemes = [];
+          const targets = [];
+          for (const root of roots) {
+            if (Array.isArray(root.schemes)) schemes.push(...root.schemes);
+            if (Array.isArray(root.targets)) targets.push(...root.targets);
+            if (Array.isArray(root.projects)) {
+              for (const child of root.projects) {
+                if (Array.isArray(child.schemes)) schemes.push(...child.schemes);
+                if (Array.isArray(child.targets)) targets.push(...child.targets);
+              }
+            }
+          }
+          if (!schemes.includes(scheme)) throw new Error(`${scheme} scheme is missing`);
+          if (!targets.includes('FileTransfer')) throw new Error('FileTransfer target is missing');
+          NODE
+
+      - name: Build unsigned device app
+        run: |
+          set -euo pipefail
+          rm -rf build/DerivedData "$IOS_OUTPUT"
+          xcodebuild \
+            -project "$IOS_PROJECT" \
+            -scheme "$IOS_SCHEME" \
+            -configuration "$IOS_CONFIGURATION" \
+            -sdk "$IOS_SDK" \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/DerivedData \
+            clean build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY= \
+            CODE_SIGN_ENTITLEMENTS= \
+            ONLY_ACTIVE_ARCH=NO \
+            2>&1 | tee build-ios-app.log
+          source_app="build/DerivedData/Build/Products/Release-iphoneos/FileTransfer.app"
+          test -d "$source_app"
+          test -f "$source_app/Info.plist"
+          ditto "$source_app" "$IOS_OUTPUT"
+          rm -rf "$IOS_OUTPUT/_CodeSignature" "$IOS_OUTPUT/embedded.mobileprovision"
+
+      - name: Validate and package app
+        run: |
+          set -euo pipefail
+          plutil -lint "$IOS_OUTPUT/Info.plist"
+          executable="$(plutil -extract CFBundleExecutable xml1 -o - "$IOS_OUTPUT/Info.plist" | python3 -c 'import plistlib,sys; print(plistlib.load(sys.stdin.buffer)["CFBundleExecutable"])')"
+          test -x "$IOS_OUTPUT/$executable"
+          rm -f build/FileTransfer.app.zip
+          ditto -c -k --sequesterRsrc --keepParent "$IOS_OUTPUT" build/FileTransfer.app.zip
+          unzip -t build/FileTransfer.app.zip >/dev/null
+          printf 'APP_PATH=%s\n' "$GITHUB_WORKSPACE/build/FileTransfer.app.zip" >> "$GITHUB_ENV"
+          printf 'APP_SIZE=%s bytes\n' "$(wc -c < build/FileTransfer.app.zip)"
+          shasum -a 256 build/FileTransfer.app.zip
+
+      - name: Upload FileTransfer.app.zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: FileTransfer-app
+          path: build/FileTransfer.app.zip
+          if-no-files-found: error
+          retention-days: 14
