@@ -55,9 +55,9 @@ final class AppState: ObservableObject {
         transferService = service
         bindTransferService(service)
         save(serverURL: serverURL)
-        if let session {
+        if session != nil {
             socket.connect()
-            Task { await loadDashboard() }
+            Task { await self.loadDashboard() }
         }
     }
 
@@ -74,23 +74,23 @@ final class AppState: ObservableObject {
 
     func login(identifier: String, password: String) async {
         await run {
-            let endpoints = try EndpointResolver.resolve(input: settings.serverURL)
-            let client = APIClient(endpoints: endpoints, keychain: keychain)
+            let endpoints = try EndpointResolver.resolve(input: self.settings.serverURL)
+            let client = APIClient(endpoints: endpoints, keychain: self.keychain)
             let stored = try await client.login(identifier: identifier, password: password)
-            applySession(stored)
-            try await configureClient(client, endpoints: endpoints)
-            await loadDashboard()
+            self.applySession(stored)
+            try await self.configureClient(client, endpoints: endpoints)
+            await self.loadDashboard()
         }
     }
 
     func register(username: String, email: String?, displayName: String, password: String) async {
         await run {
-            let endpoints = try EndpointResolver.resolve(input: settings.serverURL)
-            let client = APIClient(endpoints: endpoints, keychain: keychain)
+            let endpoints = try EndpointResolver.resolve(input: self.settings.serverURL)
+            let client = APIClient(endpoints: endpoints, keychain: self.keychain)
             let stored = try await client.register(username: username, email: email, displayName: displayName, password: password)
-            applySession(stored)
-            try await configureClient(client, endpoints: endpoints)
-            await loadDashboard()
+            self.applySession(stored)
+            try await self.configureClient(client, endpoints: endpoints)
+            await self.loadDashboard()
         }
     }
 
@@ -117,25 +117,25 @@ final class AppState: ObservableObject {
 
     func testConnection() async {
         await run {
-            guard let client = apiClient else { throw APIError.invalidURL }
-            health = try await client.health()
+            guard let client = self.apiClient else { throw APIError.invalidURL }
+            self.health = try await client.health()
         }
     }
 
     func loadDashboard() async {
         await run {
-            guard let client = apiClient else { return }
-            do { health = try await client.health() } catch { }
-            await loadFriends()
-            await loadRequests()
-            await loadTransfers()
+            guard let client = self.apiClient else { return }
+            do { self.health = try await client.health() } catch { }
+            await self.loadFriends()
+            await self.loadRequests()
+            await self.loadTransfers()
             do { _ = try await client.unreadCount() } catch { }
         }
     }
 
     func loadFriends() async {
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             let friends = try await client.friends()
             let presence = try await client.presence()
             let online = Set(presence.filter(\.online).map(\.numericId))
@@ -149,74 +149,74 @@ final class AppState: ObservableObject {
 
     func loadRequests() async {
         await run {
-            guard let client = apiClient else { return }
-            friendRequests = try await client.friendRequests()
+            guard let client = self.apiClient else { return }
+            self.friendRequests = try await client.friendRequests()
         }
     }
 
     func searchFriends(query: String) async {
         await run {
-            guard let client = apiClient else { return }
-            searchResults = query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? [] : try await client.searchFriends(query: query)
+            guard let client = self.apiClient else { return }
+            self.searchResults = query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? [] : try await client.searchFriends(query: query)
         }
     }
 
     func sendFriendRequest(userID: Int) async {
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             _ = try await client.sendFriendRequest(userID: userID)
-            await loadRequests()
+            await self.loadRequests()
         }
     }
 
     func acceptFriendRequest(_ request: FriendRequestRecord) async {
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             _ = try await client.acceptFriendRequest(requesterID: request.requesterId)
-            await loadRequests()
-            await loadFriends()
+            await self.loadRequests()
+            await self.loadFriends()
         }
     }
 
     func rejectFriendRequest(_ request: FriendRequestRecord) async {
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             try await client.rejectFriendRequest(requesterID: request.requesterId)
-            await loadRequests()
+            await self.loadRequests()
         }
     }
 
     func removeFriend(_ friend: Friend) async {
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             try await client.removeFriend(userID: friend.numericId)
-            await loadFriends()
+            await self.loadFriends()
         }
     }
 
     func block(_ friend: Friend) async {
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             try await client.block(userID: friend.numericId)
-            await loadFriends()
+            await self.loadFriends()
         }
     }
 
     func loadConversation(_ friend: Friend) async {
         selectedFriendID = friend.numericId
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             let messages = try await client.chatHistory(userID: friend.numericId)
-            conversations[friend.numericId] = messages
+            self.conversations[friend.numericId] = messages
             _ = try await client.markConversationRead(userID: friend.numericId)
         }
     }
 
     func sendMessage(to friend: Friend, content: String) async {
         await run {
-            guard let client = apiClient else { return }
+            guard let client = self.apiClient else { return }
             let message = try await client.sendMessage(recipientID: friend.numericId, content: content, clientMessageID: UUID().uuidString)
-            append(message, for: friend.numericId)
+            self.append(message, for: friend.numericId)
         }
     }
 
@@ -230,10 +230,10 @@ final class AppState: ObservableObject {
 
     func loadTransfers() async {
         await run {
-            guard let client = apiClient else { return }
-            transfers = try await client.transfers()
-            if let service = transferService {
-                for transfer in transfers where transfer.status == .uploading {
+            guard let client = self.apiClient else { return }
+            self.transfers = try await client.transfers()
+            if let service = self.transferService {
+                for transfer in self.transfers where transfer.status == .uploading {
                     try? await service.restoreProgress(for: transfer)
                 }
             }
@@ -242,9 +242,9 @@ final class AppState: ObservableObject {
 
     func upload(_ item: LocalFileItem, to friend: Friend) async {
         await run {
-            guard let service = transferService else { return }
+            guard let service = self.transferService else { return }
             let transfer = try await service.upload(file: item, recipient: friend)
-            upsert(transfer)
+            self.upsert(transfer)
         }
     }
 
@@ -266,9 +266,9 @@ final class AppState: ObservableObject {
 
     func cancel(_ transfer: Transfer) async {
         await run {
-            guard let service = transferService else { return }
+            guard let service = self.transferService else { return }
             try await service.cancel(transferID: transfer.id)
-            transfers.removeAll { $0.id == transfer.id }
+            self.transfers.removeAll { $0.id == transfer.id }
         }
     }
 
